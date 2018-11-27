@@ -20,13 +20,24 @@ const Tweeter = () => {
             ]
         },
     ]
-
+    let postsCounter = 1;
     const getPosts = () => _posts;
 
-    //this one will remove the letter from id and return a number
-    const getIndex = (id) => id.slice(1);
+    //OLD ONE://this one will remove the letter from id and return a number
+    //const getIndex = (id) => id.slice(1);
+    //i changed it because i wanted to have a real uniq id for each posts so now the id doesnt connected to the location in array
+    const getIndex = (id, arr) => {
+        for (let i in arr) {
+            if (arr[i].id === id) {
+                return i;
+            }
+        }
+    }
 
-    const generatePostsID = () => `p${_posts.length}`;
+    const generatePostsID = () => {
+        postsCounter++;
+        return `p${postsCounter}`
+    };
 
     const addPost = (text) => {
         const newPost = {
@@ -39,13 +50,14 @@ const Tweeter = () => {
     }
 
     const removePost = (postID) => {
-        if (_posts[getIndex(postID)]) {
-            console.log(`REMOVING POST: ${_posts[getIndex(postID)].text}`)
-            _posts.splice(getIndex(postID), 1);
-            //fix ID :
-            for (i in _posts) {
-                _posts[i].id = `p${(i)}`;
-            }
+        const indexToRemove = getIndex(postID, _posts);
+        if (_posts[indexToRemove]) {
+            console.log(`REMOVING POST: ${_posts[indexToRemove].text}`)
+            _posts.splice(indexToRemove, 1);
+            // //fix ID :
+            // for (i in _posts) {
+            //     _posts[i].id = `p${(i)}`;
+            // }
         }
         else {
             console.log("THIS POST DOESNT EXIST");
@@ -58,43 +70,59 @@ const Tweeter = () => {
 
     const addComment = (postID, text) => {
         const newComment = {
-            id: generateCommentID(getIndex(postID)),
+            id: generateCommentID(getIndex(postID, _posts)),
             text: text
         }
-        _posts[getIndex(postID)].comments.push(newComment);
+        _posts[getIndex(postID, _posts)].comments.push(newComment);
         console.log(`ADDED COMMENT: "${newComment.text}" AT POST ${postID}`);
     }
 
 
     const removeComment = (postID, commentID) => {
-        const comments = _posts[getIndex(postID)].comments;
-        if (comments[getIndex(commentID)]) {
-            console.log(`REMOVING COMMENT: ${comments[getIndex(commentID)].text}`);
-            comments.splice(getIndex(commentID), 1)
-            //fix ID :
-            for (i in comments) {
-                comments[i].id = `c${(i)}`;
+        console.log("\ttrying to remove a comment")
+        const pIndexToRemove = getIndex(postID, _posts)
+        if (_posts[pIndexToRemove]) {
+            const comments = _posts[pIndexToRemove].comments;
+            if (comments[getIndex(commentID, comments)]) {
+                console.log(`REMOVING COMMENT: ${comments[getIndex(commentID, comments)].text}`);
+                comments.splice(getIndex(commentID, comments), 1)
+                //fix ID :
+                for (i in comments) {
+                    comments[i].id = `c${(i)}`;
+                }
+            }
+            else {
+                console.log("THIS COMMENT DOESNT EXIST")
+
             }
         }
         else {
-            console.log("THIS COMMENT DOESNT EXIST")
-
+            console.log("THIS POST DOESNT EXIST")
         }
     }
 
-    return {
-        getP: getPosts,
-        addP: addPost,
-        removeP: removePost,
-        addC: addComment,
-        removeC: removeComment
-    }
+
+return {
+    getP: getPosts,
+    addP: addPost,
+    removeP: removePost,
+    addC: addComment,
+    removeC: removeComment
+}
 }
 
 const tweeter = Tweeter()
 // ======================================
 //                 TESTS
 // ======================================
+
+
+
+
+
+
+
+
 
 tweeter.addP("This is my own post!")
 console.log(tweeter.getP())
