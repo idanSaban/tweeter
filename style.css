@@ -70,6 +70,7 @@ body{
     padding: 5px;
     border-radius: 3px;
     font-size: 0.8em;
+    margin-left: 50px;
 }
 
 .delete-comment{
