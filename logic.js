@@ -116,14 +116,7 @@ const tweeter = Tweeter()
 //                 TESTS
 // ======================================
 
-
-
-
-
-
-
-
-
+console.log(tweeter.getP())
 tweeter.addP("This is my own post!")
 console.log(tweeter.getP())
 //This should be added to the posts array:
