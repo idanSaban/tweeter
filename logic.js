@@ -69,12 +69,17 @@ const Tweeter = () => {
     const generateCommentID = (index) => `c${_posts[index].comments.length}`;
 
     const addComment = (postID, text) => {
-        const newComment = {
-            id: generateCommentID(getIndex(postID, _posts)),
-            text: text
+        if (_posts[getIndex(postID, _posts)]) {
+            const newComment = {
+                id: generateCommentID(getIndex(postID, _posts)),
+                text: text
+            }
+            _posts[getIndex(postID, _posts)].comments.push(newComment);
+            console.log(`ADDED COMMENT: "${newComment.text}" AT POST ${postID}`);
         }
-        _posts[getIndex(postID, _posts)].comments.push(newComment);
-        console.log(`ADDED COMMENT: "${newComment.text}" AT POST ${postID}`);
+        else{
+            console.log(`post ${postID} doesnt exist`)
+        }
     }
 
 
@@ -103,15 +108,15 @@ const Tweeter = () => {
 
 
     return {
-        getP: getPosts,
-        addP: addPost,
-        removeP: removePost,
-        addC: addComment,
-        removeC: removeComment
+        getPosts: getPosts,
+        addPost: addPost,
+        removePost: removePost,
+        addComment: addComment,
+        removeComment: removeComment
     }
 }
 
-const tweeter = Tweeter()
+//const tweeter = Tweeter()
 // ======================================
 //                 TESTS
 // ======================================
