@@ -102,13 +102,13 @@ const Tweeter = () => {
     }
 
 
-return {
-    getP: getPosts,
-    addP: addPost,
-    removeP: removePost,
-    addC: addComment,
-    removeC: removeComment
-}
+    return {
+        getP: getPosts,
+        addP: addPost,
+        removeP: removePost,
+        addC: addComment,
+        removeC: removeComment
+    }
 }
 
 const tweeter = Tweeter()
@@ -116,31 +116,31 @@ const tweeter = Tweeter()
 //                 TESTS
 // ======================================
 
-console.log(tweeter.getP())
-tweeter.addP("This is my own post!")
-console.log(tweeter.getP())
-//This should be added to the posts array:
-//{text: "This is my own post!", id: "p3", comments: []}
+// console.log(tweeter.getP())
+// tweeter.addP("This is my own post!")
+// console.log(tweeter.getP())
+// //This should be added to the posts array:
+// //{text: "This is my own post!", id: "p3", comments: []}
 
-tweeter.removeP("p0")
-console.log(tweeter.getP())
-//There should only be two posts in the post's array:
-//{text: "Aw man, I wanted to be first", id: "p2", comments: Array(3)}
-//{text: "This is my own post!", id: "p3", comments: []}
+// tweeter.removeP("p0")
+// console.log(tweeter.getP())
+// //There should only be two posts in the post's array:
+// //{text: "Aw man, I wanted to be first", id: "p2", comments: Array(3)}
+// //{text: "This is my own post!", id: "p3", comments: []}
 
-tweeter.addC("p1", "Damn straight it is!")
-tweeter.addC("p1", "Second the best!")
-console.log(tweeter.getP())
-//This should be added to the third post's comments array:
-//{id: "c7", text: "Damn straight it is!"}
+// tweeter.addC("p1", "Damn straight it is!")
+// tweeter.addC("p1", "Second the best!")
+// console.log(tweeter.getP())
+// //This should be added to the third post's comments array:
+// //{id: "c7", text: "Damn straight it is!"}
 
-//This should be added to the second post's comments array:
-//{id: "c8", text: "Second the best!"}
+// //This should be added to the second post's comments array:
+// //{id: "c8", text: "Second the best!"}
 
-tweeter.removeC("p0", "c2")
-console.log(tweeter.getP())
-//This comment should be removed:
-//{id: "c6", text: "Haha second place what a joke."}
+// tweeter.removeC("p0", "c2")
+// console.log(tweeter.getP())
+// //This comment should be removed:
+// //{id: "c6", text: "Haha second place what a joke."}
 
 
 
