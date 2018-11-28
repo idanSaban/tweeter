@@ -1,8 +1,9 @@
 const Renderer = () => {
     const renderComments = (comments) => {
         let output = `<ul>`;
+        output+=`<input class="commentInput" type="text" placeholder="Comment...">`
         for (let comment of comments) {
-            output += `<li  class="comments" data-id="${comment.id}"">${comment.text} <div class="delete-comment">Remove Comment</div></li>`;
+            output += `<li  class="comments" data-id="${comment.id}"><i class="fas fa-trash-alt delete-comment"></i>${comment.text}</li>`;
         }
         output += "</ul>";
         return output

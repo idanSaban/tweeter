@@ -25,12 +25,18 @@ body{
     padding: 10px;
     font-size: 1.5vw;
 }
+.commentInput{
+    width:70%;
+    padding: 10px;
+    font-size: 1.5vw;
+}
 
 #posts{
     grid-area: p;
 }
 
 #post{
+    
     grid-area: b;
     padding: 10px;
     background-color: #3498db;
@@ -39,14 +45,18 @@ body{
     cursor: pointer;
     display: flex;
     justify-content: center;
-    font-size: 2.5vw;
+    font-size: 100%;
 }
 
 .post{
+    background-color: #3498db9f;
+
+    /* background-color: #cae0ee; */
     box-shadow: 1px 1px 3px;
     margin: 10px;
+    margin-bottom: 20px;
     border-radius: 5px;
-    padding: 10px;
+    padding: 15px;
 }
 
 #post:active{
@@ -58,6 +68,7 @@ body{
 }
 
 .comments{
+    list-style: none;
     margin-left: 10px;
     margin: 10px;
 }
@@ -70,10 +81,13 @@ body{
     padding: 5px;
     border-radius: 3px;
     font-size: 0.8em;
-    margin-left: 50px;
+    margin-left: 40px;
+    
 }
 
 .delete-comment{
+    margin-right: 8px;
+    font-size:80%;
     cursor: pointer;
     color: #e74c3c;
 }
