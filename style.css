@@ -25,11 +25,6 @@ body{
     padding: 10px;
     font-size: 1.5vw;
 }
-.commentInput{ 
-    width:90%;
-    padding: 10px;
-    font-size: 1.5vw;
-}
 
 #posts{
     grid-area: p;
@@ -64,7 +59,14 @@ body{
 .post-text{
     font-weight: bold;
 }
-
+.comment-btn{
+    text-shadow: 1px 1px 3px rgb(17, 51, 83);
+    vertical-align: middle;
+    color: #3498db;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 25px;
+}
 .comments{
     list-style: none;
     margin-left: 10px;
@@ -83,6 +85,11 @@ body{
     
 }
 
+.commentInput{ 
+    width:70%;
+    padding: 10px;
+    font-size: 1vw;
+}
 .delete-comment{
     margin-right: 8px;
     font-size:80%;

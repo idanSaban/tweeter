@@ -1,7 +1,7 @@
 const Renderer = () => {
     const renderComments = (comments) => {
         let output = `<ul>`;
-        output+=`<input class="commentInput" type="text" placeholder="Comment...">`
+        output+=`<input class="commentInput" type="text" placeholder="Comment..."> <i class="fas fa-comment comment-btn"></i>`
         for (let comment of comments) {
             output += `<li  class="comments" data-id="${comment.id}"><i class="fas fa-trash-alt delete-comment"></i>${comment.text}</li>`;
         }
@@ -9,6 +9,7 @@ const Renderer = () => {
         return output
     }
     const renderPosts = (posts) => {
+        $("#input").val("");
         $("#posts").empty();
         console.log("rendering");
         for (let post of posts) {
