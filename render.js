@@ -1,7 +1,7 @@
 const Renderer = () => {
     const renderComments = (comments) => {
         let output = `<ul>`;
-        output+=`<input class="commentInput" type="text" placeholder="Comment..."> <i class="fas fa-comment comment-btn"></i>`
+        output+=`<input class="commentInput" type="text" placeholder="Comment..."> <button class="comment-btn" disabled="disabled"><i class="fas fa-comment"></button></i>`
         for (let comment of comments) {
             output += `<li  class="comments" data-id="${comment.id}"><i class="fas fa-trash-alt delete-comment"></i>${comment.text}</li>`;
         }

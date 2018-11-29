@@ -23,9 +23,6 @@ const Tweeter = () => {
     let postsCounter = 1;
     const getPosts = () => _posts;
 
-    //OLD ONE://this one will remove the letter from id and return a number
-    //const getIndex = (id) => id.slice(1);
-    //i changed it because i wanted to have a real uniq id for each posts so now the id doesnt connected to the location in array
     const getIndex = (id, arr) => {
         for (let i in arr) {
             if (arr[i].id === id) {
@@ -54,10 +51,6 @@ const Tweeter = () => {
         if (_posts[indexToRemove]) {
             console.log(`REMOVING POST: ${_posts[indexToRemove].text}`)
             _posts.splice(indexToRemove, 1);
-            // //fix ID :
-            // for (i in _posts) {
-            //     _posts[i].id = `p${(i)}`;
-            // }
         }
         else {
             console.log("THIS POST DOESNT EXIST");
@@ -93,7 +86,7 @@ const Tweeter = () => {
                 comments.splice(getIndex(commentID, comments), 1)
                 //fix ID :
                 for (i in comments) {
-                    comments[i].id = `c${(i)}`;
+                    comments[i].id = `c${i}`;
                 }
             }
             else {
