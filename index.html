@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Tweeter</title>
     <link href="https://fonts.googleapis.com/css?family=Balthazar" rel="stylesheet">
@@ -8,8 +7,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
 </head>
-
 <body>
     <h1 id="header">Tweeter</h1>
     <div id="container">
@@ -19,10 +18,26 @@
             <p>csdcds</p>
         </div>
     </div>
-    
-    <script src="logic.js"></script> <!-- You've got this -->
-    <script src="render.js"></script> <!-- You'll create this soon -->
-    <script src="main.js"></script> <!--  You'll create this soon -->
+
+    <script id="posts-template" type="text/x-handlebars-template">
+        {{#each posts}}
+            <div class="post" data-id="{{id}}">
+                <p class="post-text">{{text}}</p>
+                    <ul>
+                        <input class="commentInput" type="text" placeholder="Comment..."> <button class="comment-btn" disabled="disabled"><i class="fas fa-comment"></i></button>
+                            {{#each comments}}
+                                <li  class="comments" data-id="{{id}}"><i class="fas fa-trash-alt delete-comment"></i>{{text}}</li>
+                            {{/each}} 
+                    </ul>
+                    
+                <div class="delete">Remove Post</div>
+            </div>
+        {{/each}}
+    </script>
+
+    <script src="logic.js"></script>
+    <script src="render.js"></script>
+    <script src="main.js"></script> 
 </body>
 
 </html>
