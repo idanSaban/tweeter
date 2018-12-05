@@ -1,70 +1,64 @@
 class Tweeter {
     constructor() {
-        this._posts = []
+        this._posts = JSON.parse(localStorage.tweeterPosts || "[]")
+        this.postsCounter = JSON.parse(localStorage.postsCounter || "0")
     }
-    getPosts() { return this._posts };
 
+    getPosts() {
+        return this._posts
+    }
+    generatePostsID() {
+        this.postsCounter++;
+        return `p${this.postsCounter}`
+    }
     addPost(text) {
-        const newPost = new Post(text)
+        const newPost = new Post(this.generatePostsID(), text)
         this._posts.push(newPost);
         console.log(`ADDED POST: "${newPost.text}" ID: ${newPost.id}`);
+        this.saveToStorage()
     }
-
     removePost(postID) {
         const indexToRemove = this._posts.findIndex(post => post.id === postID)
-        if (this._posts[indexToRemove]) {
-            console.log(`REMOVING POST: ${this._posts[indexToRemove].text}`)
-            this._posts.splice(indexToRemove, 1);
-        }
-        else {
-            console.log("THIS POST DOESNT EXIST");
-        }
+        console.log(`REMOVING POST: ${this._posts[indexToRemove].text}`)
+        this._posts.splice(indexToRemove, 1);
+        this.saveToStorage()
+    }
+    generateCommentID(postIndex) {
+        return `c${this._posts[postIndex].comments.length}`
     }
     addComment(postID, text) {
         const postIndex = this._posts.findIndex(p => p.id === postID)
-        this._posts[postIndex].addComment(text)
-
+        const newComment = new Comment(this.generateCommentID(postIndex), text)
+        this._posts[postIndex].comments.push(newComment)
+        console.log(`ADDED COMMENT: "${newComment.text}"(ID : ${newComment.id}) AT POST ${postID}`)
+        this.saveToStorage()
     }
     removeComment(postID, commentID) {
-        const postIndex = this._posts.findIndex(p => p.id === postID)
-        this._posts[postIndex].removeComment(commentID)
+        const post = this._posts[this._posts.findIndex(p => p.id === postID)]
+        const commentIndex = post.comments.findIndex(c => c.id == commentID)
+        console.log(`REMOVING COMMENT: ${post.comments[commentIndex].text}, ID:${commentID}`)
+        post.comments.splice(commentIndex, 1)
+        //fix ID :
+        post.comments.forEach(c => {
+            c.id = `c${post.comments.indexOf(c)}`
+        })
+        this.saveToStorage()
+    }
+
+
+    saveToStorage() {
+        localStorage.setItem('tweeterPosts', JSON.stringify(this._posts))
+        localStorage.setItem('tweeterPostID', JSON.stringify(this.postsCounter))
     }
 }
-
 
 class Post {
-    constructor(text) {
+    constructor(id, text) {
         this.text = text
         this.comments = []
-        this.id = Post.generatePostsID()
-    }
-    static generatePostsID() {
-        Post.postsCounter++;
-        return `p${Post.postsCounter}`
-    }
-
-    generateCommentID() {
-        const id = this.comments.length
-        return `c${id}`
-    }
-
-    addComment(text) {
-        const newComment = new Comment(this.generateCommentID(), text)
-        this.comments.push(newComment);
-        console.log(`ADDED COMMENT: "${newComment.text}"(id : ${newComment.id}) AT POST ${this.id}`)
-    }
-    removeComment(commentID) {
-        const commentIndex = this.comments.findIndex(c => c.id == commentID)
-        console.log(commentIndex)
-        console.log(`REMOVING COMMENT: ${this.comments[commentIndex].text}`)
-        this.comments.splice(commentIndex, 1)
-        // //fix ID :
-        this.comments.forEach(c => {
-            c.id = `c${this.comments.indexOf(c)}`
-        })
+        this.id = id
     }
 }
-Post.postsCounter = 0;
 
 class Comment {
     constructor(id, text) {

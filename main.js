@@ -3,16 +3,22 @@ const renderer = new Renderer()
 renderer.renderPosts(tweeter.getPosts())
 
 $("#post").on("click", function () {
-    // you should grab the value from the big input 
     const postInput = $(this).closest("#container").find("#input").val();
-    //and create a new post
     tweeter.addPost(postInput);
-    //render again
     renderer.renderPosts(tweeter.getPosts());
-    $('#post').attr('disabled', true);
+    $("#post").attr("disabled", true);
 })
-   
-// When the Delete Post button is clicked,
+
+// when press enter button on input
+$("#input").keypress(function (e) {
+    var key = e.which;
+    if (key == 13)  // the enter key code
+    {
+        $("#post").click();
+        return false;
+    }
+})
+
 $("#posts").on("click", ".delete", function () {
     if (confirm("Are you sure you want to remove this post?")) {
         const postID = $(this).closest(".post").data("id");
@@ -30,6 +36,17 @@ $("#posts").on("click", ".comment-btn", function () {
 
 })
 
+// when press enter button on input
+$("#posts").on("keypress", ".commentInput", (function (e) {
+    var key = e.which;
+    if (key == 13)  // the enter key code
+    {
+        $(this).closest(".post").find(".comment-btn").click();
+        return false;
+    }
+}))
+
+
 $("#posts").on("click", ".delete-comment", function () {
     if (confirm("Are you sure you want to remove this comment?")) {
         const postID = $(this).closest(".post").data("id");
@@ -39,6 +56,7 @@ $("#posts").on("click", ".delete-comment", function () {
     }
 })
 
+//the next two functions disable the buttons for empty posts and comments
 $("#input").on("keyup", function () {
     let disable = false;
     if ($(this).val() === "") {
@@ -46,7 +64,6 @@ $("#input").on("keyup", function () {
     }
     $("#post").attr('disabled', disable);
 })
-
 $("#posts").on("keyup", ".commentInput", function () {
     let disable = false;
     if ($(this).val() === "") {
@@ -57,16 +74,16 @@ $("#posts").on("keyup", ".commentInput", function () {
 
 
 // TESTS:
-const testing=()=>{
+const testing = () => {
     tweeter.addPost("First post!")
-    tweeter.addComment("p1","First comment on first post!")
-    tweeter.addComment("p1","Second comment on first post!!")
-    tweeter.addComment("p1","Third comment on first post!!")
+    tweeter.addComment("p1", "First comment on first post!")
+    tweeter.addComment("p1", "Second comment on first post!!")
+    tweeter.addComment("p1", "Third comment on first post!!")
     tweeter.addPost("Aw man, I wanted to be first")
-    tweeter.addComment("p2","Don't wory second poster, you'll be first one day.")
-    tweeter.addComment("p2","Yeah, believe in yourself!")
-    tweeter.addComment("p2","Haha second place what a joke.")
+    tweeter.addComment("p2", "Don't wory second poster, you'll be first one day.")
+    tweeter.addComment("p2", "Yeah, believe in yourself!")
+    tweeter.addComment("p2", "Haha second place what a joke.")
     renderer.renderPosts(tweeter.getPosts())
 }
-testing()
+// testing()
 
